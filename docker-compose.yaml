@@ -1,0 +1,21 @@
+version: '3'
+services:
+  dev-postgres:
+    image: postgres
+    deploy:
+      replicas: 2
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=student
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  webapp:
+    build: .
+    deploy:
+      replicas: 1
+    ports:
+      - 5000:5000
+networks:
+  pgnetwork:
+volumes:
+  pgdata:
